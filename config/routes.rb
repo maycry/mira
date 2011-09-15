@@ -1,4 +1,6 @@
 Mira::Application.routes.draw do
+  resources :items
+
   resources :lists
 
   get "home/index"

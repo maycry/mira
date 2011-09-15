@@ -44,8 +44,8 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.save
-        format.html { redirect_to @list, :notice => 'List was successfully created.' }
-        format.json { render :json => @list, :status => :created, :location => @list }
+        format.html { redirect_to lists_path, :notice => 'List was successfully created.' }
+        format.json { render :json => lists_path, :status => :created, :location => lists_path }
       else
         format.html { render :action => "new" }
         format.json { render :json => @list.errors, :status => :unprocessable_entity }
@@ -60,7 +60,7 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       if @list.update_attributes(params[:list])
-        format.html { redirect_to @list, :notice => 'List was successfully updated.' }
+        format.html { redirect_to lists_path, :notice => 'List was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
