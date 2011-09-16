@@ -1,8 +1,9 @@
 class ListsController < ApplicationController
+  before_filter :require_login
   # GET /lists
   # GET /lists.json
   def index
-    @lists = List.all
+    @lists = List.find_all_by_user_id(current_user)
 
     respond_to do |format|
       format.html # index.html.erb

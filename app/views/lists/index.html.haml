@@ -4,19 +4,22 @@
 %ul
   -@lists.each do |list|
     %li
-    %h2= list.name
-    = link_to 'Edit', edit_list_path(list)
-    = link_to 'Destroy', list, :confirm => 'Are you sure?', :method => :delete
-     
-    -list.items.each do |item|
-      %li
-        = item.content 
-        = link_to 'Edit', edit_item_path(item)
-        = link_to 'Destroy', item, :confirm => 'Are you sure?', :method => :delete 
+      %h2= list.name
+      = link_to 'Edit', edit_list_path(list)
+      = link_to 'Destroy', list, :confirm => 'Are you sure?', :method => :delete
       
-    .list_links 
-      = link_to 'New Item', new_item_path(:list_id => list)
+      -if list.items
+        %ul
+       
+          -list.items.each do |item|
+            %li
+              = item.content 
+              = link_to 'Edit', edit_item_path(item)
+              = link_to 'Destroy', item, :confirm => 'Are you sure?', :method => :delete 
+            
+          .list_links 
+            = link_to 'New Item', new_item_path(:list_id => list)
       
 
-%br
-= link_to 'New List', new_list_path
+  %br
+  = link_to 'New List', new_list_path
