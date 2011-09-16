@@ -25,7 +25,7 @@ class ListsController < ApplicationController
   # GET /lists/new
   # GET /lists/new.json
   def new
-    @list = List.new
+    @list = User.find(current_user).lists.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,7 +41,7 @@ class ListsController < ApplicationController
   # POST /lists
   # POST /lists.json
   def create
-    @list = List.new(params[:list])
+    @list = User.find(current_user).lists.new(params[:list])
 
     respond_to do |format|
       if @list.save
