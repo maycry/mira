@@ -77,8 +77,14 @@ class ListsController < ApplicationController
     @list.destroy
 
     respond_to do |format|
-      format.html { redirect_to lists_url }
+      format.html { redirect_to lists_url, :notice => "Destoyed. #{undo_link}" }
       format.json { head :ok }
     end
   end
+  
+  private
+  def undo_link
+    view_context.link_to("undo", revert_version_path(@list.versions.scoped.last), :method => :post)
+  end
+  
 end

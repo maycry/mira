@@ -14,6 +14,8 @@ Mira::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
   resources :users
   resources :sessions
+  
+  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

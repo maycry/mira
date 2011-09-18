@@ -14,6 +14,9 @@
   <%= link_to "Sign up", signup_path %> or
   <%= link_to "log in", login_path %>.
 <% end %>
+<% flash.each do|name, msg| %>
+<%= content_tag :div, raw(msg), :id => "flash_#{name}"%>
+<% end %>
 <%= yield %>
 
 </body>
