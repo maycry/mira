@@ -77,14 +77,25 @@ class ListsController < ApplicationController
     @list.destroy
 
     respond_to do |format|
-      format.html { redirect_to lists_url, :notice => "Destoyed. #{undo_link}" }
+      format.html { redirect_to lists_url, :notice => "Destoyed" }
+      format.json { head :ok }
+    end
+  end
+  
+  def hide
+    @list = List.find(params[:id])
+    @list.update_attributes(:visible => false)
+
+    respond_to do |format|
+      format.html { redirect_to lists_url, :notice => "Destoyed.#{undo_list_destroing}"} 
       format.json { head :ok }
     end
   end
   
   private
-  def undo_link
-    view_context.link_to("undo", revert_version_path(@list.versions.scoped.last), :method => :post)
+  
+  def undo_list_destroing
+    view_context.link_to "Undo", list_path(params[:id], :list => {:visible => true}), :method => :put
   end
   
 end

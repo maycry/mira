@@ -81,4 +81,20 @@ class ItemsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def hide
+    @item = Item.find(params[:id])
+    @item.update_attributes(:visible => false)
+
+    respond_to do |format|
+      format.html { redirect_to lists_url, :notice => "Item destoyed.#{undo_item_destroing}"} 
+      format.json { head :ok }
+    end
+  end
+  
+  private
+  
+  def undo_item_destroing
+    view_context.link_to "Undo", item_path(params[:id], :item => {:visible => true}), :method => :put
+  end
 end

@@ -21,7 +21,7 @@ end
 
 gem 'jquery-rails'
 gem 'sorcery'
-gem 'paper_trail'
+#gem 'paper_trail'
 
 # Use unicorn as the web server
 # gem 'unicorn'
