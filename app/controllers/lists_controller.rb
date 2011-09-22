@@ -14,7 +14,8 @@ class ListsController < ApplicationController
   # GET /lists/1
   # GET /lists/1.json
   def show
-    @list = List.find(params[:id])
+    #@list = List.find(params[:id])
+    @list ||= current_user.lists.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +26,7 @@ class ListsController < ApplicationController
   # GET /lists/new
   # GET /lists/new.json
   def new
-    @list = User.find(current_user).lists.new
+    @list ||= current_user.lists.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,7 +36,7 @@ class ListsController < ApplicationController
 
   # GET /lists/1/edit
   def edit
-    @list = List.find(params[:id])
+    @list ||= current_user.lists.find(params[:id])
   end
 
   # POST /lists
@@ -57,7 +58,7 @@ class ListsController < ApplicationController
   # PUT /lists/1
   # PUT /lists/1.json
   def update
-    @list = List.find(params[:id])
+    @list ||= current_user.lists.find(params[:id])
 
     respond_to do |format|
       if @list.update_attributes(params[:list])
@@ -73,7 +74,7 @@ class ListsController < ApplicationController
   # DELETE /lists/1
   # DELETE /lists/1.json
   def destroy
-    @list = List.find(params[:id])
+    @list ||= current_user.lists.find(params[:id])
     @list.destroy
 
     respond_to do |format|
@@ -83,7 +84,7 @@ class ListsController < ApplicationController
   end
   
   def hide
-    @list = List.find(params[:id])
+    @list ||= current_user.lists.find(params[:id])
     @list.update_attributes(:visible => false)
 
     respond_to do |format|

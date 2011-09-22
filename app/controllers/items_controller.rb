@@ -14,8 +14,13 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    @item = Item.find(params[:id])
-
+    #@item = Item.find(params[:id])
+    #@item = Item.find(params[:id]) if Item.find(params[:id]).list.user == current_user
+    if params[:id].blank?
+      @item
+    else
+      @item ||= current_user.lists.find(Item.find(params[:id]).list.id).items.find(params[:id])
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @item }
