@@ -3,11 +3,15 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user = login(params[:email], params[:password], params[:remember_me])
+    user = login(params[:email], params[:password], :remember_me => true)
     if user
       redirect_back_or_to root_url, :notice => "Logged in!"
     else
-      flash.now.alert = "Email or password was invalid"
+      if user_exist?(params[:email])
+        flash.now.alert = "Password  was invalid"
+      else
+        flash.now.alert = "Email was invalid"
+      end
       render :new
     end
   end
@@ -15,6 +19,12 @@ class SessionsController < ApplicationController
   def destroy
     logout
     redirect_to root_url, :notice => "Logged out!"
+  end
+  
+  private
+  
+  def user_exist?(email)
+    !User.where(:email => email).blank?
   end
 
 end
