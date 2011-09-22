@@ -8,7 +8,6 @@
         %h2= list.name
         = link_to 'Edit', edit_list_path(list)
         = link_to 'Destroy', hide_list_path(:id => list), :method => :put
-        
         -if list.items
           %ul
             -list.items.each do |item|
@@ -17,10 +16,9 @@
                   = item.content 
                   = link_to 'Edit', edit_item_path(item)
                   = link_to 'Destroy', hide_item_path(:id => item), :method => :put
-                
+               
             .list_links 
               = link_to 'New Item', new_item_path(:list_id => list)
       
-
   %br
   = link_to 'New List', new_list_path
